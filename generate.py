@@ -7,3 +7,5 @@ def mudata_generate(min: int, max: int, num: int):
         x = round(x, 2)
         a.append(x)
     return a
+
+

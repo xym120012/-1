@@ -1,15 +1,36 @@
-# 这是一个示例 Python 脚本。
-
-# 按 Shift+F10 执行或将其替换为您的代码。
-# 按 双击 Shift 在所有地方搜索类、文件、工具窗口、操作和设置。
-import datetime
-def print_hi(name):
-    # 在下面的代码行中使用断点来调试脚本。
-    print(f'Hi, {name}')  # 按 Ctrl+F8 切换断点。
-
-
+import generate
+import matplotlib.pyplot as plt
+import analyze
 # 按装订区域中的绿色按钮以运行脚本。
 if __name__ == '__main__':
-    print_hi('PyCharm')
 
-# 访问 https://www.jetbrains.com/help/pycharm/ 获取 PyCharm 帮助
+
+    plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']
+    # 解决图像中的'-'负号的乱码问题
+    plt.rcParams['axes.unicode_minus'] = False
+
+    a = generate.mudata_generate(20, 30, 50)
+    abnum_index = []
+    abnum = []
+
+    analyze.print_data(a)
+    analyze.outlier(a, abnum, abnum_index)
+    print(abnum)
+
+    plt.hist(a, bins=10, edgecolor="r", histtype="bar", alpha=0.5)
+
+    plt.title("data analyze")
+    plt.xlabel("temperature")
+    plt.ylabel("rate")
+
+    plt.figure()  # 新建绘图
+    plt.grid()  # 显示网格
+    # plt.plot(range(len(a)), a)
+    # plt.scatter(n,x,c='b',marker = "<") #散点图
+    plt.stem(range(len(a)), a)  # 茎叶图
+    if not abnum:
+        pass
+    else:
+        plt.stem(abnum_index, abnum, linefmt='--c2', markerfmt='<r', basefmt="-c2")
+
+    plt.show()
